@@ -435,6 +435,70 @@
         <joint_properties damping="1.0" friction="1.0"/>
     </joint>
 
+    <!-- Laser Position Control-->
+    <link name="laser_scan_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://barista_robot_description/meshes/hokuyo_urg_04lx.dae" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </visual>
 
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.0204"/>
+            <geometry>
+                <box size="0.1 0.1 0.08"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <mass value="0.01"/>
+            <origin rpy="0 0 0" xyz="0 0 0.0204"/>
+            <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+        </inertial>
+    </link>
+
+
+    <joint name="laser_scan_link_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.090 0 0.0775"/>
+        <parent link="chassis"/>
+        <child link="laser_scan_link"/>
+    </joint>
+
+    <!--Source: https://github.com/Hlwy/gazebo_sensor_collection/blob/master/urdf/lidars/hokuyo_urg04lx.urdf.xacro-->
+    <gazebo reference="laser_scan_link">
+        <sensor name="sensor_hokuyo_urg04lx" type="gpu_ray">
+            <pose>0 0 0 0 0 0</pose>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>640</samples>
+                        <resolution>0.00628318531</resolution>
+                        <min_angle>-2.0943</min_angle>
+                        <max_angle>2.0943</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.02</min>
+                    <max>4.0</max>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+				</noise>
+            </ray>
+            <always_on>true</always_on>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <plugin name="sensor_hokuyo_urg04lx_controller" filename="libgazebo_ros_gpu_laser.so">
+                <ros>
+                    <namespace>/barista_robot</namespace>
+                    <remapping>~/out:=laser_scan</remapping>
+                </ros>
+                <output_type>sensor_msgs/LaserScan</output_type>
+            </plugin>
+        </sensor>
+   </gazebo>
 
 </robot>
