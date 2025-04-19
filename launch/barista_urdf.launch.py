@@ -20,16 +20,15 @@ def generate_launch_description():
     pkg_box_bot_gazebo = get_package_share_directory('barista_robot_description')
 
 
-    # We get the whole install dir. We do this to avoid having to copy or    # softlink manually the packages so that gazebo can find them
+    # We get the whole install dir. We do this to avoid having to copy or    
+    # softlink manually the packages so that gazebo can find them
     # That way, it will find meshes and other useful files for Gazebo
     description_package_name = "barista_robot_description"
     install_dir = get_package_prefix(description_package_name)
 
-
     # Set the path to the WORLD model files. Is to find the models inside the models folder in my_box_bot_gazebo package
     gazebo_models_path = os.path.join(pkg_box_bot_gazebo, 'models')
     # os.environ["GAZEBO_MODEL_PATH"] = gazebo_models_path
-
 
     if 'GAZEBO_MODEL_PATH' in os.environ:
         os.environ['GAZEBO_MODEL_PATH'] =  os.environ['GAZEBO_MODEL_PATH'] + ':' + install_dir + '/share' + ':' + gazebo_models_path
@@ -46,14 +45,12 @@ def generate_launch_description():
     print("GAZEBO MODELS PATH=="+str(os.environ["GAZEBO_MODEL_PATH"]))
     print("GAZEBO PLUGINS PATH=="+str(os.environ["GAZEBO_PLUGIN_PATH"]))
 
-
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_gazebo_ros, 'launch', 'gazebo.launch.py'),
         )
     )
-
 
     ####### DATA INPUT ##########
     urdf_file = 'barista_robot_model.urdf'
@@ -77,13 +74,6 @@ def generate_launch_description():
         output="screen"
     )
 
-    joint_state_publisher_gui_node = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        name='joint_state_publisher_gui',
-        # condition=launch_ros.conditions.IfCondition(LaunchConfiguration('gui'))
-    )
-
     # RVIZ Configuration
     rviz_config_dir = os.path.join(get_package_share_directory(package_description), 'rviz', 'config.rviz')
 
@@ -102,7 +92,7 @@ def generate_launch_description():
     # [Roll, Pitch, Yaw]
     orientation = [0.0, 0.0, 0.0]
     # Base Name or robot
-    robot_base_name = "box_bot"
+    robot_base_name = "barista_bot"
     entity_name = robot_base_name+"-"+str(int(random.random()*100000))
 
 
@@ -131,7 +121,6 @@ def generate_launch_description():
             description='SDF world file'),
             gazebo,
             robot_state_publisher_node,
-            joint_state_publisher_gui_node,
-            rviz_node,
             spawn_robot,
+            rviz_node,
         ])

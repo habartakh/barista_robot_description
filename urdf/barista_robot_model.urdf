@@ -57,11 +57,7 @@
         <child link="chassis" />
     </joint>
 
-      <gazebo reference="chassis">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
+    <gazebo reference="chassis">
         <material>Gazebo/Blue</material>
     </gazebo>
 
@@ -100,10 +96,8 @@
     </joint>
 
     <gazebo reference="right_motor_wheel">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
+        <mu1>0.7</mu1>
+        <mu2>0.7</mu2>
         <material>Gazebo/Black</material>
     </gazebo>
 
@@ -126,9 +120,9 @@
         </collision>
 
         <inertial>
-        <mass value="0.1"/>
-        <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
-        <inertia ixx="3.451233333333334e-05" ixy="0" ixz="0" iyy="3.451233333333334e-05" iyz="0" izz="6.1952e-05"/>
+            <mass value="0.1"/>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <inertia ixx="3.451233333333334e-05" ixy="0" ixz="0" iyy="3.451233333333334e-05" iyz="0" izz="6.1952e-05"/>
         </inertial>
 
     </link>
@@ -143,10 +137,8 @@
     </joint>
 
     <gazebo reference="left_motor_wheel">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
+        <mu1>0.7</mu1>
+        <mu2>0.7</mu2>
         <material>Gazebo/Black</material>
     </gazebo>
 
@@ -248,10 +240,8 @@
     </joint>
 
     <gazebo reference="front_pitch_link">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
         <material>Gazebo/Green</material>
     </gazebo>
 
@@ -350,10 +340,8 @@
     </joint>
 
     <gazebo reference="back_pitch_link">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
         <material>Gazebo/Green</material>
     </gazebo>
     <gazebo reference="back_roll_link">
@@ -389,20 +377,13 @@
 
     </link>
 
-    <joint name="front_right_rod_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="0.090 -0.090 0.1902" /> <!--z = 0.155 + 0.0352-->
+    <joint name="front_right_rod_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.050 -0.130 0.1902" /> <!--z = 0.155 + 0.0352-->
         <parent link="base_link" />
         <child link="front_right_rod" />
-        <axis rpy="0 0 0" xyz="0 0 1"/>
-        <limit effort="10000" velocity="1000"/>
-        <joint_properties damping="1.0" friction="1.0"/>
     </joint>
 
     <gazebo reference="front_right_rod">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
         <material>Gazebo/White</material>
     </gazebo>
 
@@ -432,20 +413,13 @@
 
     </link>
 
-    <joint name="front_left_rod_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="0.090 0.090 0.1902" />
+    <joint name="front_left_rod_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.050 0.130 0.1902" />
         <parent link="base_link" />
         <child link="front_left_rod" />
-        <axis rpy="0 0 0" xyz="0 0 1"/>
-        <limit effort="10000" velocity="1000"/>
-        <joint_properties damping="1.0" friction="1.0"/>
     </joint>
 
-    <gazebo reference="front_right_rod">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
+    <gazebo reference="front_left_rod">
         <material>Gazebo/White</material>
     </gazebo>
 
@@ -474,20 +448,13 @@
 
     </link>
 
-    <joint name="back_right_rod_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="-0.090 -0.090 0.1902" />
+    <joint name="back_right_rod_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="-0.020 -0.130 0.1902" />
         <parent link="base_link" />
         <child link="back_right_rod" />
-        <axis rpy="0 0 0" xyz="0 0 1"/>
-        <limit effort="10000" velocity="1000"/>
-        <joint_properties damping="1.0" friction="1.0"/>
     </joint>
 
     <gazebo reference="back_right_rod">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
         <material>Gazebo/White</material>
     </gazebo>
 
@@ -509,27 +476,20 @@
         </collision>
 
         <inertial>
-                <mass value="0.250"/>
-                <origin rpy="0 0 0" xyz="0 0 0.110"/>
-                <inertia ixx="0.0010145833333333333" ixy="0" ixz="0" iyy="0.0010145833333333333" iyz="0" izz="1.25e-05"/>
+            <mass value="0.250"/>
+            <origin rpy="0 0 0" xyz="0 0 0.110"/>
+            <inertia ixx="0.0010145833333333333" ixy="0" ixz="0" iyy="0.0010145833333333333" iyz="0" izz="1.25e-05"/>
         </inertial>
 
     </link>
 
-    <joint name="back_left_rod_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="-0.090 0.090 0.1902" />
+    <joint name="back_left_rod_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="-0.020 0.130 0.1902" />
         <parent link="base_link" />
         <child link="back_left_rod" />
-        <axis rpy="0 0 0" xyz="0 0 1"/>
-        <limit effort="10000" velocity="1000"/>
-        <joint_properties damping="1.0" friction="1.0"/>
     </joint>
 
     <gazebo reference="back_left_rod">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
         <material>Gazebo/White</material>
     </gazebo>
 
@@ -557,20 +517,14 @@
 
     </link>
 
-    <joint name="cup_holder_joint" type="continuous">
+    <!-- The cup holder is fixed to the robot body-->
+    <joint name="cup_holder_joint" type="fixed">
         <origin rpy="0 0 0" xyz="0 0 0.4552" /> <!--z = 0.03552 + 0.155 + 0.220 + (0.090/2) -->
         <parent link="base_link" />
         <child link="cup_holder" />
-        <axis rpy="0 0 0" xyz="0 0 1"/>
-        <limit effort="10000" velocity="1000"/>
-        <joint_properties damping="1.0" friction="1.0"/>
     </joint>
 
     <gazebo reference="cup_holder">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
         <material>Gazebo/Blue</material>
     </gazebo>
 
@@ -600,50 +554,95 @@
 
 
     <joint name="laser_scan_link_joint" type="fixed">
-        <origin rpy="0 0 0" xyz="0.090 0 0.2302"/> <!--z = 0.0352 + 0.155 + 0.08/2-->
+        <origin rpy="0 0 0" xyz="0.110 0 0.2302"/> <!--z = 0.0352 + 0.155 + 0.08/2-->
         <parent link="base_link"/>
         <child link="laser_scan_link"/>
     </joint>
 
-    <gazebo reference="laser_scan_link">
-        <kp>1000000000000000000000000000.0</kp>
-        <kd>1000000000000000000000000000.0</kd>
-        <mu1>10.0</mu1>
-        <mu2>10.0</mu2>
-        <material>Gazebo/Grey</material>
-    </gazebo>
 
     <gazebo reference="laser_scan_link">
-        <sensor name="sensor_ray" type="ray">
-            <pose>0 0 0 0 0 0</pose>
+        <material>Gazebo/Grey</material>
+        <sensor name="lidar_sensor" type="ray">
+            <!-- <pose>0 0 0 0 0 0</pose> -->
+            <always_on>true</always_on>
+            <visualize>true</visualize>
+            <update_rate>15.0</update_rate>
             <ray>
                 <scan>
                     <horizontal>
                         <samples>200</samples>
-                        <resolution>1.0</resolution>
-                        <min_angle>-2.0943</min_angle>
-                        <max_angle>2.0943</max_angle>
+                        <resolution>1</resolution>
+                        <min_angle>-1.5707</min_angle>
+                        <max_angle>1.5707</max_angle>
                     </horizontal>
                 </scan>
                 <range>
-                    <min>0.1</min>
-                    <max>4.0</max>
+                    <min>0.2</min>
+                    <max>30.0</max>
+                    <resolution>0.01</resolution>
                 </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+				</noise>
             </ray>
-            <always_on>true</always_on>
-            <visualize>true</visualize>
-            <update_rate>100.0</update_rate>
-            <plugin name="laser" filename="libgazebo_ros_ray_sensor.so">
+            <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
                 <ros>
-                    <!-- <namespace>/barista_robot</namespace> -->
                     <remapping>~/out:=scan</remapping>
                 </ros>
+                <frame_name>laser_scan_link</frame_name>
                 <output_type>sensor_msgs/LaserScan</output_type>
             </plugin>
         </sensor>
    </gazebo>
 
 
-    
+    <gazebo>
+        <plugin name="barista_bot_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
+            <ros>
+                <remapping>~/out:=joint_states</remapping>
+            </ros>
+            <update_rate>30</update_rate>
+            <joint_name>right_motor_wheel_joint</joint_name>
+            <joint_name>left_motor_wheel_joint</joint_name>
+            <joint_name>front_yaw_joint</joint_name>
+            <joint_name>back_yaw_joint</joint_name>
+            <joint_name>front_roll_joint</joint_name>
+            <joint_name>back_roll_joint</joint_name>
+            <joint_name>front_pitch_joint</joint_name>
+            <joint_name>back_pitch_joint</joint_name>
+        </plugin>
+    </gazebo>
+
+
+   <gazebo>
+        <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+
+            <!-- wheels -->
+            <left_joint>left_motor_wheel_joint</left_joint>
+            <right_joint>right_motor_wheel_joint</right_joint>
+
+            <!-- kinematics -->
+            <wheel_separation>0.316</wheel_separation> <!--w_s = 0.158 - (-0.158)-->
+            <wheel_diameter>0.0704</wheel_diameter> <!--w_d = 0.0352 * 2 -->
+
+            <!-- limits -->
+            <max_wheel_torque>1.0</max_wheel_torque>
+            <max_wheel_acceleration>2.0</max_wheel_acceleration>
+            
+            <!-- Topic to receive geometry_msgs/Twist message commands, defaults to `cmd_vel` -->
+            <commandTopic>cmd_vel</commandTopic>
+
+            <!-- output -->
+            <publish_odom>true</publish_odom>
+            <publish_odom_tf>true</publish_odom_tf>
+            <odometry_frame>odom</odometry_frame>
+            <robot_base_frame>base_link</robot_base_frame>
+
+
+        </plugin>
+    </gazebo>
+
 
 </robot>
