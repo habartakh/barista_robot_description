@@ -91,8 +91,8 @@
     </link>
 
     <joint name="right_motor_wheel_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="0 -0.158 -0.0775" />
-        <parent link="chassis" />
+        <origin rpy="0 0 0" xyz="0 -0.158 0.0352" />
+        <parent link="base_link" />
         <child link="right_motor_wheel" />
         <axis rpy="0 0 0" xyz="0 1 0"/>
         <limit effort="10000" velocity="1000"/>
@@ -134,8 +134,8 @@
     </link>
 
     <joint name="left_motor_wheel_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="0 0.158 -0.0775" />
-        <parent link="chassis" />
+        <origin rpy="0 0 0" xyz="0 0.158 0.0352" />
+        <parent link="base_link" />
         <child link="left_motor_wheel" />
         <axis rpy="0 0 0" xyz="0 1 0"/>
         <limit effort="10000" velocity="1000"/>
@@ -175,8 +175,8 @@
     </link>
 
     <joint name="front_yaw_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="0.128 0 -0.0775" />
-        <parent link="chassis" />
+        <origin rpy="0 0 0" xyz="0.128 0 0.0352" />
+        <parent link="base_link" />
         <child link="front_yaw_link" />
         <axis xyz="0 0 1" />
         <limit effort="1000.0" velocity="100.0" />
@@ -278,8 +278,8 @@
     </link>
 
     <joint name="back_yaw_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="-0.128 0 -0.0775" />
-        <parent link="chassis" />
+        <origin rpy="0 0 0" xyz="-0.128 0 0.0352" />
+        <parent link="base_link" />
         <child link="back_yaw_link" />
         <axis xyz="0 0 1" />
         <limit effort="1000.0" velocity="100.0" />
@@ -390,8 +390,8 @@
     </link>
 
     <joint name="front_right_rod_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="0.090 -0.090 0.0775" />
-        <parent link="chassis" />
+        <origin rpy="0 0 0" xyz="0.090 -0.090 0.1902" /> <!--z = 0.155 + 0.0352-->
+        <parent link="base_link" />
         <child link="front_right_rod" />
         <axis rpy="0 0 0" xyz="0 0 1"/>
         <limit effort="10000" velocity="1000"/>
@@ -433,8 +433,8 @@
     </link>
 
     <joint name="front_left_rod_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="0.090 0.090 0.0775" />
-        <parent link="chassis" />
+        <origin rpy="0 0 0" xyz="0.090 0.090 0.1902" />
+        <parent link="base_link" />
         <child link="front_left_rod" />
         <axis rpy="0 0 0" xyz="0 0 1"/>
         <limit effort="10000" velocity="1000"/>
@@ -475,8 +475,8 @@
     </link>
 
     <joint name="back_right_rod_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="-0.090 -0.090 0.0775" />
-        <parent link="chassis" />
+        <origin rpy="0 0 0" xyz="-0.090 -0.090 0.1902" />
+        <parent link="base_link" />
         <child link="back_right_rod" />
         <axis rpy="0 0 0" xyz="0 0 1"/>
         <limit effort="10000" velocity="1000"/>
@@ -517,8 +517,8 @@
     </link>
 
     <joint name="back_left_rod_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="-0.090 0.090 0.0775" />
-        <parent link="chassis" />
+        <origin rpy="0 0 0" xyz="-0.090 0.090 0.1902" />
+        <parent link="base_link" />
         <child link="back_left_rod" />
         <axis rpy="0 0 0" xyz="0 0 1"/>
         <limit effort="10000" velocity="1000"/>
@@ -558,8 +558,8 @@
     </link>
 
     <joint name="cup_holder_joint" type="continuous">
-        <origin rpy="0 0 0" xyz="0 0 0.3425" />
-        <parent link="chassis" />
+        <origin rpy="0 0 0" xyz="0 0 0.4552" /> <!--z = 0.03552 + 0.155 + 0.220 + (0.090/2) -->
+        <parent link="base_link" />
         <child link="cup_holder" />
         <axis rpy="0 0 0" xyz="0 0 1"/>
         <limit effort="10000" velocity="1000"/>
@@ -578,7 +578,7 @@
     <!--Laser specs : https://www.hokuyo-aut.jp/search/single.php?serial=166#spec -->
     <link name="laser_scan_link">
         <visual>
-            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <origin rpy="0 0 0" xyz="0 0 -0.04"/>
             <geometry>
                 <mesh filename="package://barista_robot_description/meshes/hokuyo_urg_04lx.dae" scale="1.0 1.0 1.0"/>
             </geometry>
@@ -600,8 +600,8 @@
 
 
     <joint name="laser_scan_link_joint" type="fixed">
-        <origin rpy="0 0 0" xyz="0.090 0 0.0775"/>
-        <parent link="chassis"/>
+        <origin rpy="0 0 0" xyz="0.090 0 0.2302"/> <!--z = 0.0352 + 0.155 + 0.08/2-->
+        <parent link="base_link"/>
         <child link="laser_scan_link"/>
     </joint>
 
@@ -629,11 +629,6 @@
                     <min>0.1</min>
                     <max>4.0</max>
                 </range>
-                <!-- <noise>
-                    <type>gaussian</type>
-                    <mean>0.0</mean>
-                    <stddev>0.01</stddev>
-				</noise> -->
             </ray>
             <always_on>true</always_on>
             <visualize>true</visualize>
@@ -641,11 +636,14 @@
             <plugin name="laser" filename="libgazebo_ros_ray_sensor.so">
                 <ros>
                     <!-- <namespace>/barista_robot</namespace> -->
-                    <remapping>~/out:=laser_scan</remapping>
+                    <remapping>~/out:=scan</remapping>
                 </ros>
                 <output_type>sensor_msgs/LaserScan</output_type>
             </plugin>
         </sensor>
    </gazebo>
+
+
+    
 
 </robot>
