@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="standoff_rod" params="rod_name origin_xyz origin_rpy r_l r_r material mass">
+        <link name="${rod_name}">
+            <visual>
+                <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+                    <geometry>
+                        <cylinder length="${r_l}" radius="${r_r}"/>
+                    </geometry>
+                <material name="${material}"/>
+            </visual>
+
+            <collision>
+                <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+                <geometry>
+                    <cylinder length="${r_l}" radius="${r_r}"/>
+                </geometry>
+            </collision>
+
+            <inertial>
+                <mass value="${mass}"/>
+                <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+                <inertia  ixx="${mass*(3*r_r*r_r+r_l*r_l)/12}" ixy = "0" ixz = "0"
+                    iyy="${mass*(3*r_r*r_r+r_l*r_l)/12}" iyz = "0"
+                    izz="${mass*(r_r*r_r)/2}" />
+            </inertial>
+
+        </link>        
+    </xacro:macro>
+
+    <xacro:macro name="rod_joint" params="joint_name type origin_xyz origin_rpy parent child">
+
+        <joint name="${joint_name}" type="${type}">
+            <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+            <parent link="${parent}" />
+            <child link="${child}" />
+            <axis rpy="0 0 0" xyz="0 0 1"/>
+            <limit effort="10000" velocity="1000"/>
+            <joint_properties damping="1.0" friction="1.0"/>
+        </joint>
+    
+    </xacro:macro>
+
+
+
+
+</robot>
