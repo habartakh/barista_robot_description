@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="my_box_bot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="barista_robot">
 
     <!--Include motor wheels macros -->
     <xacro:include filename="$(find barista_robot_description)/xacro/drive_wheel.xacro"/>
@@ -7,6 +7,8 @@
     <xacro:include filename="$(find barista_robot_description)/xacro/caster_wheel.xacro"/>
     <!--Include standoff rods macros -->
     <xacro:include filename="$(find barista_robot_description)/xacro/standoff_rod.xacro"/>
+    <!--Include cup holder tray macro -->
+    <xacro:include filename="$(find barista_robot_description)/xacro/cup_holder_tray.xacro"/>
 
 
     <material name="red">
@@ -185,7 +187,12 @@
     
     <!--******************** Cup Holder Tray **************************-->
 
-
+    <xacro:cup_holder_tray link_name="cup_holder" origin_xyz="0 0 0" 
+            origin_rpy="0 0 0" cht_l="0.090" cht_r="0.160" material="blue" mass="1.0"/>
+    
+    <xacro:cup_holder_tray_joint joint_name="cup_holder_joint" type="continuous" 
+        origin_xyz="0 0 0.4552" origin_rpy="0 0 0" parent="base_link" 
+        child="cup_holder"/>
 
 
 </robot>
