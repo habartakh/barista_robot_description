@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+        <xacro:macro name="caster_wheel" params="caster_name origin_xyz origin_rpy radius material mass">
+            <link name="${caster_name}">
+                <visual>
+                    <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+                        <geometry>
+                            <sphere radius="${radius}"/>
+                        </geometry>
+                    <material name="${material}"/>
+                </visual>
+
+                <collision>
+                    <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+                    <geometry>
+                        <sphere radius="${radius}"/>
+                    </geometry>
+                </collision>
+
+                <inertial>
+                    <mass value="${mass}"/>
+                    <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+                    <inertia  
+                        ixx="${2*mass*radius*radius/5}" ixy = "0" ixz = "0"
+                        iyy="${2*mass*radius*radius/5}" iyz = "0"
+                        izz="${2*mass*radius*radius/5}"
+                    />
+
+                </inertial>
+
+            </link> 
+        
+        </xacro:macro>
+
+        <xacro:macro name="joint_caster_wheel" params="joint_caster_name type origin_xyz origin_rpy parent child axis_xyz">
+            <joint name="${joint_caster_name}" type="${type}">
+            <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+            <parent link="${parent}" />
+            <child link="${child}" />
+            <axis rpy="0 0 0" xyz="${axis_xyz}"/>
+            <limit effort="10000" velocity="1000"/>
+            <joint_properties damping="1.0" friction="1.0"/>
+        </joint>
+        </xacro:macro>
+
+
+</robot>

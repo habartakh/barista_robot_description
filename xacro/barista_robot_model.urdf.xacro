@@ -3,6 +3,8 @@
 
     <!--Include motor wheels macros -->
     <xacro:include filename="$(find barista_robot_description)/xacro/drive_wheel.xacro"/>
+    <!--Include caster wheels macros -->
+    <xacro:include filename="$(find barista_robot_description)/xacro/caster_wheel.xacro"/>
 
 
     <material name="red">
@@ -66,7 +68,8 @@
             origin_rpy="0 1.5707 1.5707" w_l="0.0206" w_r="0.0352" material="black" mass="0.1"/> 
 
     <xacro:drive_wheel_joint joint_name="right_motor_wheel_joint" type="continuous" 
-        origin_xyz="0 -0.158 0.0352" origin_rpy="0 0 0" parent="base_link" child="right_motor_wheel"/>
+        origin_xyz="0 -0.158 0.0352" origin_rpy="0 0 0" parent="base_link" 
+        child="right_motor_wheel" axis_xyz="0 1 0"/>
 
 
     <!--Left drive wheel-->
@@ -74,8 +77,63 @@
             origin_rpy="0 1.5707 1.5707" w_l="0.0206" w_r="0.0352" material="black" mass="0.1"/> 
 
     <xacro:drive_wheel_joint joint_name="left_motor_wheel_joint" type="continuous" 
-        origin_xyz="0 0.158 0.0352" origin_rpy="0 0 0" parent="base_link" child="left_motor_wheel"/>
+        origin_xyz="0 0.158 0.0352" origin_rpy="0 0 0" parent="base_link" 
+        child="left_motor_wheel" axis_xyz="0 1 0"/>
 
+    <!--Caster wheels are modeled by 3 different links for each representing one RPY angle-->
+    <!--We use the drive_wheel macro to represent Yaw and Roll links-->
+
+    <!-- Front Caster wheel Yaw Link and Joint-->
+    <xacro:drive_wheel wheel_name="front_yaw_link" origin_xyz="0 0 0" 
+            origin_rpy="0 1.5707 1.5707" w_l="0.05" w_r="0.0152" material="blue" mass="0.01"/> 
+
+    <xacro:drive_wheel_joint joint_name="front_yaw_joint" type="continuous" 
+        origin_xyz="0.128 0 0.0352" origin_rpy="0 0 0" parent="base_link" 
+        child="front_yaw_link" axis_xyz="0 0 1"/>
+
+    <!-- Front Caster wheel Roll Link and Joint-->
+    <xacro:drive_wheel wheel_name="front_roll_link" origin_xyz="0 0 0" 
+            origin_rpy="0 1.5707 1.5707" w_l="0.05" w_r="0.0152" material="red" mass="0.01"/> 
+
+    <xacro:drive_wheel_joint joint_name="front_roll_joint" type="continuous" 
+        origin_xyz="0 0 0" origin_rpy="0 0 0" parent="front_yaw_link" 
+        child="front_roll_link" axis_xyz="1 0 0"/>
+
+    <!--Caster_wheel macro is used to represent the final Pitch link-->
+    <xacro:caster_wheel caster_name="front_pitch_link" origin_xyz="0 0 0" 
+            origin_rpy="0 1.5707 1.5707" radius="0.0352" material="green_dark" mass="0.1"/>
+
+    <xacro:joint_caster_wheel joint_caster_name="front_pitch_joint" type="continuous" 
+        origin_xyz="0 0 0" origin_rpy="0 0 0" parent="front_roll_link" 
+        child="front_pitch_link" axis_xyz="0 1 0"/>
+
+
+
+    <!--*************************************************************************************************-->
+
+    <!-- Back Caster wheel Yaw Link and Joint-->
+    <xacro:drive_wheel wheel_name="back_yaw_link" origin_xyz="0 0 0" 
+            origin_rpy="0 1.5707 1.5707" w_l="0.05" w_r="0.0152" material="blue" mass="0.01"/> 
+
+    <xacro:drive_wheel_joint joint_name="back_yaw_joint" type="continuous" 
+        origin_xyz="-0.128 0 0.0352" origin_rpy="0 0 0" parent="base_link" 
+        child="back_yaw_link" axis_xyz="0 0 1"/>
+
+    <!-- Back Caster wheel Roll Link and Joint-->
+    <xacro:drive_wheel wheel_name="back_roll_link" origin_xyz="0 0 0" 
+            origin_rpy="0 1.5707 1.5707" w_l="0.05" w_r="0.0152" material="red" mass="0.01"/> 
+
+    <xacro:drive_wheel_joint joint_name="back_roll_joint" type="continuous" 
+        origin_xyz="0 0 0" origin_rpy="0 0 0" parent="back_yaw_link" 
+        child="back_roll_link" axis_xyz="1 0 0"/>
+
+    <!--Caster_wheel macro is used to represent the final Pitch link-->
+    <xacro:caster_wheel caster_name="back_pitch_link" origin_xyz="0 0 0" 
+            origin_rpy="0 1.5707 1.5707" radius="0.0352" material="green_dark" mass="0.1"/>
+
+    <xacro:joint_caster_wheel joint_caster_name="back_pitch_joint" type="continuous" 
+        origin_xyz="0 0 0" origin_rpy="0 0 0" parent="back_roll_link" 
+        child="back_pitch_link" axis_xyz="0 1 0"/>
 
 
 </robot>
