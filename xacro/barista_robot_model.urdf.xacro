@@ -326,5 +326,35 @@
 
     <xacro:laser include_laser="${include_laser}"/>
 
+    
+    <!--********************Differential Drive Plugin **************************-->
+    <gazebo>
+        <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+
+            <!-- wheels -->
+            <left_joint>left_motor_wheel_joint</left_joint>
+            <right_joint>right_motor_wheel_joint</right_joint>
+
+            <!-- kinematics -->
+            <wheel_separation>0.316</wheel_separation> <!--w_s = 0.158 - (-0.158)-->
+            <wheel_diameter>0.0704</wheel_diameter> <!--w_d = 0.0352 * 2 -->
+
+            <!-- limits -->
+            <max_wheel_torque>1.0</max_wheel_torque>
+            <max_wheel_acceleration>2.0</max_wheel_acceleration>
+            
+            <!-- Topic to receive geometry_msgs/Twist message commands, defaults to `cmd_vel` -->
+            <commandTopic>cmd_vel</commandTopic>
+
+            <!-- output -->
+            <publish_odom>true</publish_odom>
+            <publish_odom_tf>true</publish_odom_tf>
+            <odometry_frame>odom</odometry_frame>
+            <robot_base_frame>base_link</robot_base_frame>
+
+
+        </plugin>
+    </gazebo>
+
 
 </robot>
