@@ -29,13 +29,13 @@
         </link>        
     </xacro:macro>
 
-    <xacro:macro name="drive_wheel_joint" params="joint_name type origin_xyz origin_rpy parent child">
+    <xacro:macro name="drive_wheel_joint" params="joint_name type origin_xyz origin_rpy parent child axis_xyz">
 
         <joint name="${joint_name}" type="${type}">
             <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
             <parent link="${parent}" />
             <child link="${child}" />
-            <axis rpy="0 0 0" xyz="0 1 0"/>
+            <axis rpy="0 0 0" xyz="${axis_xyz}"/>
             <limit effort="10000" velocity="1000"/>
             <joint_properties damping="1.0" friction="1.0"/>
         </joint>
