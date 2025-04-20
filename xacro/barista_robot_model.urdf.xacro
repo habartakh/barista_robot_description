@@ -69,6 +69,10 @@
         <parent link="base_link" />
         <child link="chassis" />
     </joint>
+
+    <gazebo reference="chassis">
+        <material>Gazebo/Blue</material>
+    </gazebo>
     
     
     <!--******************** Drive Wheels **************************-->
@@ -81,6 +85,12 @@
         origin_xyz="0 -0.158 0.0352" origin_rpy="0 0 0" parent="base_link" 
         child="right_motor_wheel" axis_xyz="0 1 0"/>
 
+    <gazebo reference="right_motor_wheel">
+        <mu1>0.7</mu1>
+        <mu2>0.7</mu2>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
 
     <!--Left drive wheel-->
     <xacro:drive_wheel wheel_name="left_motor_wheel" origin_xyz="0 0 0" 
@@ -89,6 +99,12 @@
     <xacro:drive_wheel_joint joint_name="left_motor_wheel_joint" type="continuous" 
         origin_xyz="0 0.158 0.0352" origin_rpy="0 0 0" parent="base_link" 
         child="left_motor_wheel" axis_xyz="0 1 0"/>
+
+    <gazebo reference="left_motor_wheel">
+        <mu1>0.7</mu1>
+        <mu2>0.7</mu2>
+        <material>Gazebo/Black</material>
+    </gazebo>
 
     <!--******************** Caster Wheels **************************-->
 
@@ -111,6 +127,7 @@
         origin_xyz="0 0 0" origin_rpy="0 0 0" parent="front_yaw_link" 
         child="front_roll_link" axis_xyz="1 0 0"/>
 
+
     <!--Caster_wheel macro is used to represent the final Pitch link-->
     <xacro:caster_wheel caster_name="front_pitch_link" origin_xyz="0 0 0" 
             origin_rpy="0 1.5707 1.5707" radius="0.0352" material="green_dark" mass="0.1"/>
@@ -118,6 +135,12 @@
     <xacro:joint_caster_wheel joint_caster_name="front_pitch_joint" type="continuous" 
         origin_xyz="0 0 0" origin_rpy="0 0 0" parent="front_roll_link" 
         child="front_pitch_link" axis_xyz="0 1 0"/>
+
+    <gazebo reference="front_pitch_link">
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
+        <material>Gazebo/Green</material>
+    </gazebo>
 
 
 
@@ -136,7 +159,7 @@
     <xacro:drive_wheel_joint joint_name="back_roll_joint" type="continuous" 
         origin_xyz="0 0 0" origin_rpy="0 0 0" parent="back_yaw_link" 
         child="back_roll_link" axis_xyz="1 0 0"/>
-
+    
     <!--Caster_wheel macro is used to represent the final Pitch link-->
     <xacro:caster_wheel caster_name="back_pitch_link" origin_xyz="0 0 0" 
             origin_rpy="0 1.5707 1.5707" radius="0.0352" material="green_dark" mass="0.1"/>
@@ -145,7 +168,11 @@
         origin_xyz="0 0 0" origin_rpy="0 0 0" parent="back_roll_link" 
         child="back_pitch_link" axis_xyz="0 1 0"/>
 
-
+    <gazebo reference="back_pitch_link">
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
+        <material>Gazebo/Green</material>
+    </gazebo>
 
     <!--******************** Standoff Rods **************************-->
     
@@ -159,6 +186,10 @@
         origin_xyz="0.090 -0.090 0.1902" origin_rpy="0 0 0" parent="base_link" 
         child="front_right_rod"/>
 
+    <gazebo reference="front_right_rod">
+        <material>Gazebo/White</material>
+    </gazebo>
+
     <!--Front Left Rod-->
     <xacro:standoff_rod rod_name="front_left_rod" origin_xyz="0 0 0.110" 
             origin_rpy="0 0 0" r_l="0.220" r_r="0.01" material="white" mass="0.250"/> 
@@ -166,6 +197,10 @@
     <xacro:rod_joint joint_name="front_left_rod_joint" type="continuous" 
         origin_xyz="0.090 0.090 0.1902" origin_rpy="0 0 0" parent="base_link" 
         child="front_left_rod"/>
+
+    <gazebo reference="front_left_rod">
+        <material>Gazebo/White</material>
+    </gazebo>
    
 
     <!--Back Right Rod-->
@@ -176,6 +211,10 @@
         origin_xyz="-0.090 -0.090 0.1902" origin_rpy="0 0 0" parent="base_link" 
         child="back_right_rod"/>
 
+    <gazebo reference="back_right_rod">
+        <material>Gazebo/White</material>
+    </gazebo>
+
     <!--Back Left Rod-->
     <xacro:standoff_rod rod_name="back_left_rod" origin_xyz="0 0 0.110" 
             origin_rpy="0 0 0" r_l="0.220" r_r="0.01" material="white" mass="0.250"/> 
@@ -183,6 +222,10 @@
     <xacro:rod_joint joint_name="back_left_rod_joint" type="continuous" 
         origin_xyz="-0.090 0.090 0.1902" origin_rpy="0 0 0" parent="base_link" 
         child="back_left_rod"/>
+    
+    <gazebo reference="back_left_rod">
+        <material>Gazebo/White</material>
+    </gazebo>
 
     
     <!--******************** Cup Holder Tray **************************-->
@@ -193,6 +236,10 @@
     <xacro:cup_holder_tray_joint joint_name="cup_holder_joint" type="continuous" 
         origin_xyz="0 0 0.4552" origin_rpy="0 0 0" parent="base_link" 
         child="cup_holder"/>
+    
+    <gazebo reference="cup_holder">
+        <material>Gazebo/Blue</material>
+    </gazebo>
 
 
 </robot>
