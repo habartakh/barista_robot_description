@@ -12,6 +12,8 @@
 
     <!--Include laser or not in representation-->
     <xacro:property name="include_laser" value="true"/>
+    <xacro:include filename="$(find barista_robot_description)/xacro/laser_scanner.xacro"/>
+
 
 
     <material name="red">
@@ -185,8 +187,8 @@
     <xacro:standoff_rod rod_name="front_right_rod" origin_xyz="0 0 0.110" 
             origin_rpy="0 0 0" r_l="0.220" r_r="0.01" material="white" mass="0.250"/> 
 
-    <xacro:rod_joint joint_name="front_right_rod_joint" type="continuous" 
-        origin_xyz="0.090 -0.090 0.1902" origin_rpy="0 0 0" parent="base_link" 
+    <xacro:rod_joint joint_name="front_right_rod_joint" type="fixed" 
+        origin_xyz="0.050 -0.130 0.1902" origin_rpy="0 0 0" parent="base_link" 
         child="front_right_rod"/>
 
     <gazebo reference="front_right_rod">
@@ -197,8 +199,8 @@
     <xacro:standoff_rod rod_name="front_left_rod" origin_xyz="0 0 0.110" 
             origin_rpy="0 0 0" r_l="0.220" r_r="0.01" material="white" mass="0.250"/> 
 
-    <xacro:rod_joint joint_name="front_left_rod_joint" type="continuous" 
-        origin_xyz="0.090 0.090 0.1902" origin_rpy="0 0 0" parent="base_link" 
+    <xacro:rod_joint joint_name="front_left_rod_joint" type="fixed" 
+        origin_xyz="0.050 0.130 0.1902" origin_rpy="0 0 0" parent="base_link" 
         child="front_left_rod"/>
 
     <gazebo reference="front_left_rod">
@@ -210,8 +212,8 @@
     <xacro:standoff_rod rod_name="back_right_rod" origin_xyz="0 0 0.110" 
             origin_rpy="0 0 0" r_l="0.220" r_r="0.01" material="white" mass="0.250"/> 
 
-    <xacro:rod_joint joint_name="back_right_rod_joint" type="continuous" 
-        origin_xyz="-0.090 -0.090 0.1902" origin_rpy="0 0 0" parent="base_link" 
+    <xacro:rod_joint joint_name="back_right_rod_joint" type="fixed" 
+        origin_xyz="-0.020 -0.130 0.1902" origin_rpy="0 0 0" parent="base_link" 
         child="back_right_rod"/>
 
     <gazebo reference="back_right_rod">
@@ -222,8 +224,8 @@
     <xacro:standoff_rod rod_name="back_left_rod" origin_xyz="0 0 0.110" 
             origin_rpy="0 0 0" r_l="0.220" r_r="0.01" material="white" mass="0.250"/> 
 
-    <xacro:rod_joint joint_name="back_left_rod_joint" type="continuous" 
-        origin_xyz="-0.090 0.090 0.1902" origin_rpy="0 0 0" parent="base_link" 
+    <xacro:rod_joint joint_name="back_left_rod_joint" type="fixed" 
+        origin_xyz="-0.020 0.130 0.1902" origin_rpy="0 0 0" parent="base_link" 
         child="back_left_rod"/>
     
     <gazebo reference="back_left_rod">
@@ -236,7 +238,7 @@
     <xacro:cup_holder_tray link_name="cup_holder" origin_xyz="0 0 0" 
             origin_rpy="0 0 0" cht_l="0.090" cht_r="0.160" material="blue" mass="1.0"/>
     
-    <xacro:cup_holder_tray_joint joint_name="cup_holder_joint" type="continuous" 
+    <xacro:cup_holder_tray_joint joint_name="cup_holder_joint" type="fixed" 
         origin_xyz="0 0 0.4552" origin_rpy="0 0 0" parent="base_link" 
         child="cup_holder"/>
     
@@ -246,86 +248,7 @@
 
 
     <!--********************Laser Scan **************************-->
-    <xacro:macro name="laser" params="include_laser:=true">
-        <xacro:if value="${include_laser}">
-            <!-- Laser Sensor -->
-            <link name="laser_scan_link">
-                <visual>
-                    <origin rpy="0 0 0" xyz="0 0 -0.04"/>
-                    <geometry>
-                        <mesh filename="package://barista_robot_description/meshes/hokuyo_urg_04lx.dae" scale="1.0 1.0 1.0"/>
-                    </geometry>
-                </visual>
-
-                <collision>
-                    <origin rpy="0 0 0" xyz="0 0 0"/>
-                    <geometry>
-                        <box size="0.1 0.1 0.08"/>
-                    </geometry>
-                </collision>
-
-                <inertial>
-                    <mass value="0.160"/>
-                    <origin rpy="0 0 0" xyz="0 0 0"/>
-                    <inertia ixx="0.0002186666666666667" ixy="0" ixz="0" iyy="0.0002186666666666667" iyz="0" izz="0.00026666666666666673"/>
-                </inertial>
-            </link>
-
-
-            <joint name="laser_scan_link_joint" type="fixed">
-                <origin rpy="0 0 0" xyz="0.090 0 0.2302"/> <!--z = 0.0352 + 0.155 + 0.08/2-->
-                <parent link="base_link"/>
-                <child link="laser_scan_link"/>
-            </joint>
-
-
-            <gazebo reference="laser_scan_link">
-                <mu1>10.0</mu1>
-                <mu2>10.0</mu2>
-                <material>Gazebo/Grey</material>
-            </gazebo>
-
-            <gazebo reference="laser_scan_link">
-                <sensor name="sensor_ray" type="ray">
-                    <pose>0 0 0 0 0 0</pose>
-                    <ray>
-                        <scan>
-                            <horizontal>
-                                <samples>200</samples>
-                                <resolution>1.0</resolution>
-                                <min_angle>-1.5707</min_angle>
-                                <max_angle>1.5707</max_angle>
-                            </horizontal>
-                        </scan>
-                        <range>
-                            <min>0.2</min>
-                            <max>4.0</max>
-                        </range>
-                        <noise>
-                            <type>gaussian</type>
-                            <mean>0.0</mean>
-                            <stddev>0.01</stddev>
-                        </noise>
-                    </ray>
-                    <always_on>true</always_on>
-                    <visualize>true</visualize>
-                    <update_rate>100</update_rate>
-                    <plugin name="laser" filename="libgazebo_ros_ray_sensor.so">
-                        <ros>
-                            <!-- <namespace>/barista_robot</namespace> -->
-                            <remapping>~/out:=scan</remapping>
-                        </ros>
-                        <output_type>sensor_msgs/LaserScan</output_type>
-                    </plugin>
-                </sensor>
-            </gazebo>
-        
-        </xacro:if>
-
-    </xacro:macro>
-
     <xacro:laser include_laser="${include_laser}"/>
-
     
     <!--********************Differential Drive Plugin **************************-->
     <gazebo>
