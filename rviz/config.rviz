@@ -249,8 +249,8 @@ Visualization Manager:
       Position Transformer: XYZ
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Flat Squares
+      Size (m): 0.05000000074505806
+      Style: Spheres
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -322,10 +322,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.16039590537548065
+      Pitch: -0.0446041040122509
       Target Frame: base_link
       Value: Orbit (rviz_default_plugins)
-      Yaw: 0.11409410089254379
+      Yaw: 1.7890937328338623
     Saved: ~
 Window Geometry:
   Displays:
