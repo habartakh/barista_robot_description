@@ -70,11 +70,13 @@ def generate_launch_description():
         "barista_robot_description"), "xacro", robot_desc_file)
 
 
-    robot_name_1 = "rick"
-    robot_name_2 = "morty"
+    robot_name_1 = "morty"
+    robot_name_2 = "rick"
 
-    robot_color_1 = "Gazebo/Blue"
-    robot_color_2 = "Gazebo/Red"
+    robot_gazebo_color_1 = "Gazebo/Blue"
+    robot_gazebo_color_2 = "Gazebo/Red"
+    robot_rviz_color_1 = "blue"
+    robot_rviz_color_2 = "red"
 
 
     rsp_robot1 = Node(
@@ -83,7 +85,10 @@ def generate_launch_description():
         name='robot_state_publisher',
         namespace=robot_name_1,
         parameters=[{'frame_prefix': robot_name_1+'/', 'use_sim_time': use_sim_time,
-                     'robot_description': Command(['xacro ', robot_desc_path, ' robot_name:=', robot_name_1, ' robot_gazebo_material:=', robot_color_1])}],
+                     'robot_description': Command(['xacro ', robot_desc_path, ' robot_name:=', robot_name_1, 
+                                            ' robot_gazebo_material:=', robot_gazebo_color_1,
+                                            ' robot_rviz_material:=', robot_rviz_color_1                        
+                                            ])}],
         output="screen")
 
 
@@ -93,7 +98,10 @@ def generate_launch_description():
         name='robot_state_publisher',
         namespace=robot_name_2,
         parameters=[{'frame_prefix': robot_name_2+'/', 'use_sim_time': use_sim_time,
-                     'robot_description': Command(['xacro ', robot_desc_path, ' robot_name:=', robot_name_2, ' robot_gazebo_material:=', robot_color_2])}],
+                     'robot_description': Command(['xacro ', robot_desc_path, ' robot_name:=', robot_name_2, 
+                                                    ' robot_gazebo_material:=', robot_gazebo_color_2,
+                                                    ' robot_rviz_material:=', robot_rviz_color_2                                                    
+                                                    ])}],
         output="screen"
     )
 
@@ -113,6 +121,25 @@ def generate_launch_description():
                    '-topic', robot_name_2+'/robot_description']
     )
 
+    # add a world fixed frame as a parent to morty's odom frame
+    fixed_frame_broadcast = Node(
+        package = 'barista_robot_description',
+        executable='fixed_frame_broadcaster.py',
+        name='fixed_frame_broadcaster',
+        # output= "screen"
+    )
+
+    # Link the world frame to both of the robots' odom frame
+    static_tf_pub = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_transform_publisher_turtle_odom',
+        output='screen',
+        emulate_tty=True,
+        arguments=['0', '0', '0', '0', '0', '0', 'world', 'rick/odom']
+    )
+
+
 
     # RVIZ Configuration
     rviz_config_dir = os.path.join(get_package_share_directory(description_package_name), 'rviz', 'double_robot.rviz')
@@ -123,7 +150,8 @@ def generate_launch_description():
             output='screen',
             name='rviz_node',
             parameters=[{'use_sim_time': True}],
-            arguments=['-d', rviz_config_dir])
+            arguments=['-d', rviz_config_dir],
+            )
 
 
     return LaunchDescription([
@@ -133,4 +161,6 @@ def generate_launch_description():
         rsp_robot2,
         spawn_robot1,
         spawn_robot2,
+        fixed_frame_broadcast,
+        static_tf_pub,
         rviz_node ])

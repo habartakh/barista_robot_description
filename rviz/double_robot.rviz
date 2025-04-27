@@ -149,7 +149,7 @@ Visualization Manager:
         Inertia: false
         Mass: false
       Name: morty
-      TF Prefix: ""
+      TF Prefix: "/morty"
       Update Interval: 0
       Value: true
       Visual Enabled: true
@@ -397,7 +397,7 @@ Visualization Manager:
         Inertia: false
         Mass: false
       Name: rick
-      TF Prefix: ""
+      TF Prefix: "/rick"
       Update Interval: 0
       Value: true
       Visual Enabled: true
@@ -438,7 +438,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: morty/base_link
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:

@@ -17,6 +17,7 @@
     <!-- Add disfferent names and colors to spawn multiple robots -->
     <xacro:property name="robot_name" value="$(arg robot_name)"/>
     <xacro:property name="robot_gazebo_material" value="$(arg robot_gazebo_material)"/>
+    <xacro:property name="robot_rviz_material" value="$(arg robot_rviz_material)"/>
 
 
 
@@ -55,7 +56,7 @@
                 <geometry>
                     <cylinder length="0.155" radius="0.178"/>
                 </geometry>
-            <material name="blue"/>
+            <material name="${robot_rviz_material}"/>
         </visual>
 
         <collision>
@@ -240,7 +241,7 @@
     <!--******************** Cup Holder Tray **************************-->
 
     <xacro:cup_holder_tray link_name="cup_holder" origin_xyz="0 0 0" 
-            origin_rpy="0 0 0" cht_l="0.090" cht_r="0.160" material="blue" mass="1.0"/>
+            origin_rpy="0 0 0" cht_l="0.090" cht_r="0.160" material="${robot_rviz_material}" mass="1.0"/>
     
     <xacro:cup_holder_tray_joint joint_name="cup_holder_joint" type="fixed" 
         origin_xyz="0 0 0.4552" origin_rpy="0 0 0" parent="base_link" 
