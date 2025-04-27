@@ -10,6 +10,10 @@ find_package(ament_cmake REQUIRED)
 find_package(xacro REQUIRED)
 find_package(urdf REQUIRED)
 find_package(gazebo_ros REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -33,6 +37,11 @@ install(
 	xacro
   DESTINATION
     share/${PROJECT_NAME}/
+)
+
+install(PROGRAMS
+  scripts/fixed_frame_broadcaster.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 
