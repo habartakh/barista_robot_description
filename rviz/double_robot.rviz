@@ -280,7 +280,7 @@ Visualization Manager:
       Max Intensity: 0
       Min Color: 0; 0; 0
       Min Intensity: 0
-      Name: LaserScan
+      Name: LaserScan-morty
       Position Transformer: XYZ
       Selectable: true
       Size (Pixels): 3
@@ -291,7 +291,7 @@ Visualization Manager:
         Durability Policy: Volatile
         Filter size: 10
         History Policy: Keep Last
-        Reliability Policy: Best Effort
+        Reliability Policy: Reliable
         Value: /morty/scan
       Use Fixed Frame: true
       Use rainbow: true
@@ -430,7 +430,7 @@ Visualization Manager:
         Durability Policy: Volatile
         Filter size: 10
         History Policy: Keep Last
-        Reliability Policy: Best Effort
+        Reliability Policy: Reliable
         Value: /rick/scan
       Use Fixed Frame: true
       Use rainbow: true
@@ -497,7 +497,7 @@ Visualization Manager:
       Name: Current View
       Near Clip Distance: 0.009999999776482582
       Pitch: 0.4953959286212921
-      Target Frame: base_link
+      Target Frame: world
       Value: Orbit (rviz_default_plugins)
       Yaw: 2.5422768592834473
     Saved: ~
