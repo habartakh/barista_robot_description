@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:macro name="laser" params="include_laser:=true">
+    <xacro:macro name="laser" params="include_laser:=true robot_name">
         <xacro:if value="${include_laser}">
             <!-- Laser Sensor -->
             <link name="laser_scan_link">
@@ -52,7 +52,7 @@
                         </scan>
                         <range>
                             <min>0.2</min>
-                            <max>30.0</max>
+                            <max>10.0</max>
                             <resolution>0.01</resolution>
                         </range>
                         <noise>
@@ -63,6 +63,7 @@
                     </ray>
                     <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
                         <ros>
+                            <namespace>/${robot_name}</namespace>
                             <remapping>~/out:=scan</remapping>
                         </ros>
                         <frame_name>laser_scan_link</frame_name>
