@@ -121,22 +121,23 @@ def generate_launch_description():
                    '-topic', robot_name_2+'/robot_description']
     )
 
-    # add a world fixed frame as a parent to morty's odom frame
-    fixed_frame_broadcast = Node(
-        package = 'barista_robot_description',
-        executable='fixed_frame_broadcaster.py',
-        name='fixed_frame_broadcaster',
-        # output= "screen"
-    )
-
     # Link the world frame to both of the robots' odom frame
-    static_tf_pub = Node(
+    static_tf_pub_rick = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
         name='static_transform_publisher_turtle_odom',
         output='screen',
         emulate_tty=True,
         arguments=['0', '0', '0', '0', '0', '0', 'world', 'rick/odom']
+    )
+
+    static_tf_pub_morty = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_transform_publisher_turtle_odom',
+        output='screen',
+        emulate_tty=True,
+        arguments=['0', '0', '0', '0', '0', '0', 'world', 'morty/odom']
     )
 
 
@@ -159,8 +160,8 @@ def generate_launch_description():
         gazebo,
         rsp_robot1,
         rsp_robot2,
+        static_tf_pub_rick,
+        static_tf_pub_morty,
         spawn_robot1,
         spawn_robot2,
-        fixed_frame_broadcast,
-        static_tf_pub,
         rviz_node ])

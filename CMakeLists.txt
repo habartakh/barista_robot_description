@@ -39,10 +39,4 @@ install(
     share/${PROJECT_NAME}/
 )
 
-install(PROGRAMS
-  scripts/fixed_frame_broadcaster.py
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-
 ament_package()
